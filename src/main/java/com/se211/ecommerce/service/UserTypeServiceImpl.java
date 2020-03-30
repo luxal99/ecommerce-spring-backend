@@ -3,9 +3,11 @@ package com.se211.ecommerce.service;
 import com.se211.ecommerce.entity.UserType;
 import com.se211.ecommerce.repository.UserTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserTypeServiceImpl implements UserTypeService {
 
     @Autowired
