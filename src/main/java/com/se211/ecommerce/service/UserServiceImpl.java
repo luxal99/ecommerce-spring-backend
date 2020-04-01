@@ -1,9 +1,9 @@
 package com.se211.ecommerce.service;
 
 import com.se211.ecommerce.entity.User;
+import com.se211.ecommerce.exception.DuplicateColumnException;
 import com.se211.ecommerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +22,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public String save(User user) {
+        System.out.println(user.getPassword());
         System.out.println(user);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+
+        try {
+            userRepository.save(user);
+            return "Saved";
+        } catch (Exception e) {
+            e = new DuplicateColumnException();
+            return e.getMessage();
+        }
+
     }
 
     @Override
@@ -40,4 +49,19 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         return "Updated";
     }
+
+    @Override
+    public User checkUser(User user) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        for (User userForSearch :
+                getAll()) {
+            if (userForSearch.getUsername().equals(user.getUsername())) {
+                if (bCryptPasswordEncoder.matches(user.getPassword(), userForSearch.getPassword())) {
+                    return userForSearch;
+                }
+            }
+        }
+        return null;
+    }
+
 }

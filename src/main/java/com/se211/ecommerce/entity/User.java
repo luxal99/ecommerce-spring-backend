@@ -127,7 +127,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.se211.ecommerce.entity.User[ idUser=" + idUser + " ]";
+        return "Client:  " + idClient.getIdClient() +"Username:  "+username+"Password:  " + password;
     }
     
 }
