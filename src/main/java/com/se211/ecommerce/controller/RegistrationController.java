@@ -1,13 +1,7 @@
 package com.se211.ecommerce.controller;
 
-import com.se211.ecommerce.entity.Client;
-import com.se211.ecommerce.entity.Company;
-import com.se211.ecommerce.entity.User;
-import com.se211.ecommerce.entity.UserType;
-import com.se211.ecommerce.service.ClientService;
-import com.se211.ecommerce.service.CompanyService;
-import com.se211.ecommerce.service.UserService;
-import com.se211.ecommerce.service.UserTypeService;
+import com.se211.ecommerce.entity.*;
+import com.se211.ecommerce.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +49,14 @@ public class RegistrationController {
     @GetMapping("/getUserType")
     public ResponseEntity<List<UserType>> getUserType() {
         return ResponseEntity.ok(userTypeService.getAll());
+    }
+
+    @Autowired
+    private UserAddressService userAddressService;
+
+    @PostMapping("/saveUserAddress")
+    public ResponseEntity<UserAddress> saveUserAddress(@RequestBody UserAddress userAddress) {
+        return ResponseEntity.ok(userAddressService.save(userAddress));
     }
 
 
