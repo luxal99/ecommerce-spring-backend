@@ -10,7 +10,6 @@ import com.se211.ecommerce.service.UserService;
 import com.se211.ecommerce.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("registration")
 public class RegistrationController {
-
 
     @Autowired
     private ClientService clientService;

@@ -26,11 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "user_type")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UserType.findAll", query = "SELECT u FROM UserType u"),
-    @NamedQuery(name = "UserType.findByIdUserType", query = "SELECT u FROM UserType u WHERE u.idUserType = :idUserType"),
-    @NamedQuery(name = "UserType.findByTitle", query = "SELECT u FROM UserType u WHERE u.title = :title")})
 public class UserType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,7 +35,7 @@ public class UserType implements Serializable {
     @Column(name = "id_user_type")
     private Integer idUserType;
     @Column(name = "title")
-    private Integer title;
+    private String title;
     @OneToMany(mappedBy = "idUserType")
     private List<User> userList;
 
@@ -59,11 +54,11 @@ public class UserType implements Serializable {
         this.idUserType = idUserType;
     }
 
-    public Integer getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(Integer title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
