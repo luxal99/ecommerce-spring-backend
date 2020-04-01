@@ -1,10 +1,10 @@
 package com.se211.ecommerce.controller;
 
 import com.se211.ecommerce.entity.Client;
-import com.se211.ecommerce.entity.ClientAddress;
 import com.se211.ecommerce.entity.Product;
 import com.se211.ecommerce.entity.User;
-import com.se211.ecommerce.service.ClientAddressService;
+import com.se211.ecommerce.entity.UserAddress;
+import com.se211.ecommerce.service.UserAddressService;
 import com.se211.ecommerce.service.ClientService;
 import com.se211.ecommerce.service.ProductService;
 import com.se211.ecommerce.service.UserService;
@@ -37,16 +37,16 @@ public class AdminController {
     //region -- ClientAddress --
 
     @Autowired
-    private ClientAddressService clientAddressService;
+    private UserAddressService userAddressService;
 
     @GetMapping("/getClientAddress")
-    public ResponseEntity<List<ClientAddress>> getAllClientAddresses() {
-        return ResponseEntity.ok(clientAddressService.getAll());
+    public ResponseEntity<List<UserAddress>> getAllClientAddresses() {
+        return ResponseEntity.ok(userAddressService.getAll());
     }
 
     @DeleteMapping("/deleteClientAddress/{idClientAddress}")
     public ResponseEntity<String> deleteClientAddress(Integer idClientAddress) {
-        return ResponseEntity.ok(clientAddressService.delete(idClientAddress));
+        return ResponseEntity.ok(userAddressService.delete(idClientAddress));
     }
 
 

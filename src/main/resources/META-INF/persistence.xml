@@ -8,6 +8,7 @@
     <class>com.se211.ecommerce.entity.User</class>
     <class>com.se211.ecommerce.entity.Product</class>
     <class>com.se211.ecommerce.entity.Client</class>
+    <class>com.se211.ecommerce.entity.UserAddress</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ecommerce?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

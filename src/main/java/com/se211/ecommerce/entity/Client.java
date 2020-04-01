@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -28,6 +30,14 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "client")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c"),
+    @NamedQuery(name = "Client.findByIdClient", query = "SELECT c FROM Client c WHERE c.idClient = :idClient"),
+    @NamedQuery(name = "Client.findByName", query = "SELECT c FROM Client c WHERE c.name = :name"),
+    @NamedQuery(name = "Client.findByLastname", query = "SELECT c FROM Client c WHERE c.lastname = :lastname"),
+    @NamedQuery(name = "Client.findByMail", query = "SELECT c FROM Client c WHERE c.mail = :mail"),
+    @NamedQuery(name = "Client.findByTelephone", query = "SELECT c FROM Client c WHERE c.telephone = :telephone")})
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,8 +58,9 @@ public class Client implements Serializable {
     @Size(max = 64)
     @Column(name = "telephone")
     private String telephone;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idClient")
-    private List<ClientAddress> clientAddressList;
+    @JoinColumn(name = "id_user_address", referencedColumnName = "id_user_address")
+    @ManyToOne(optional = false)
+    private UserAddress idUserAddress;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idClient")
     private List<User> userList;
 
@@ -100,13 +111,12 @@ public class Client implements Serializable {
         this.telephone = telephone;
     }
 
-    @XmlTransient
-    public List<ClientAddress> getClientAddressList() {
-        return clientAddressList;
+    public UserAddress getIdUserAddress() {
+        return idUserAddress;
     }
 
-    public void setClientAddressList(List<ClientAddress> clientAddressList) {
-        this.clientAddressList = clientAddressList;
+    public void setIdUserAddress(UserAddress idUserAddress) {
+        this.idUserAddress = idUserAddress;
     }
 
     @XmlTransient

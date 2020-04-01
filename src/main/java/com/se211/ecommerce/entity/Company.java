@@ -14,10 +14,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -45,10 +46,13 @@ public class Company implements Serializable {
     @Size(max = 64)
     @Column(name = "title")
     private String title;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompany")
+    @OneToMany(mappedBy = "idCompany")
     private List<Product> productList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "company")
-    private User user;
+    @JoinColumn(name = "id_user_address", referencedColumnName = "id_user_address")
+    @ManyToOne(optional = false)
+    private UserAddress idUserAddress;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompany")
+    private List<User> userList;
 
     public Company() {
     }
@@ -82,12 +86,21 @@ public class Company implements Serializable {
         this.productList = productList;
     }
 
-    public User getUser() {
-        return user;
+    public UserAddress getIdUserAddress() {
+        return idUserAddress;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdUserAddress(UserAddress idUserAddress) {
+        this.idUserAddress = idUserAddress;
+    }
+
+    @XmlTransient
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override

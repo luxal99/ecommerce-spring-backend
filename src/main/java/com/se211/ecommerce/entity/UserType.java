@@ -8,7 +8,6 @@ package com.se211.ecommerce.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +41,7 @@ public class UserType implements Serializable {
     private Integer idUserType;
     @Column(name = "title")
     private Integer title;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserType")
+    @OneToMany(mappedBy = "idUserType")
     private List<User> userList;
 
     public UserType() {

@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.findByIdProduct", query = "SELECT p FROM Product p WHERE p.idProduct = :idProduct"),
+    @NamedQuery(name = "Product.findByCode", query = "SELECT p FROM Product p WHERE p.code = :code"),
     @NamedQuery(name = "Product.findByTitle", query = "SELECT p FROM Product p WHERE p.title = :title"),
     @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
     @NamedQuery(name = "Product.findByAmount", query = "SELECT p FROM Product p WHERE p.amount = :amount")})
@@ -41,6 +42,9 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_product")
     private Integer idProduct;
+    @Size(max = 128)
+    @Column(name = "code")
+    private String code;
     @Size(max = 64)
     @Column(name = "title")
     private String title;
@@ -50,7 +54,7 @@ public class Product implements Serializable {
     @Column(name = "amount")
     private Integer amount;
     @JoinColumn(name = "id_company", referencedColumnName = "id_company")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Company idCompany;
 
     public Product() {
@@ -66,6 +70,14 @@ public class Product implements Serializable {
 
     public void setIdProduct(Integer idProduct) {
         this.idProduct = idProduct;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getTitle() {

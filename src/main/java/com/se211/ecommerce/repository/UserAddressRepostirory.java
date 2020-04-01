@@ -1,8 +1,8 @@
 package com.se211.ecommerce.repository;
 
 import com.se211.ecommerce.entity.Client;
-import com.se211.ecommerce.entity.ClientAddress;
+import com.se211.ecommerce.entity.UserAddress;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClientAddressRepository extends JpaRepository<ClientAddress,Integer> {
+public interface UserAddressRepostirory extends JpaRepository<UserAddress,Integer> {
 }
