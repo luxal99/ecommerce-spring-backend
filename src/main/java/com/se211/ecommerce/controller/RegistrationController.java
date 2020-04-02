@@ -46,7 +46,7 @@ public class RegistrationController {
      * Nakon toga se izvrsava cuvanje adrese klijenta,kao i njegovih licnih podataka,
      * id klijenta se prosledjuje sacuvanom useru i podaci o klijentu u user tabeli se
      * azuiraju
-     * 
+     *
      * U suprotnom Spring vraca izuzetak
      *
      * @param user

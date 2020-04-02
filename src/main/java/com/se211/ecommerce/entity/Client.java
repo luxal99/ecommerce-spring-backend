@@ -5,6 +5,8 @@
  */
 package com.se211.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -62,6 +64,7 @@ public class Client implements Serializable {
     @ManyToOne(optional = false)
     private UserAddress idUserAddress;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idClient")
+    @JsonIgnore
     private List<User> userList;
 
     public Client() {
