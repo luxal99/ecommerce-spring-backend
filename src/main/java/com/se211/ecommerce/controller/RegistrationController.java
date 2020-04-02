@@ -36,15 +36,16 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/saveUser")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    @PostMapping("/user")
+    public ResponseEntity<String> registerClient(@RequestBody User user) {
 
-        System.out.println(user.toString());
         try {
             User userForSave = new User();
             userForSave.setUsername(user.getUsername());
             userForSave.setPassword(user.getPassword());
             userForSave.setIdUserType(user.getIdUserType());
+
+            System.out.println(user.getIdCompany());
             UserDTO userDTO = userService.save(userForSave);
 
             if (userDTO.getSaved()) {
@@ -59,12 +60,43 @@ public class RegistrationController {
 
                 return ResponseEntity.ok("Successfully registration");
             } else {
-                return ResponseEntity.ok("Unuccessfully registration");
+                throw new DuplicateColumnException();
             }
-
-
-
         } catch (Exception e) {
+
+            e = new DuplicateColumnException();
+            return ResponseEntity.ok(e.getMessage());
+        }
+
+    }
+
+    @PostMapping("/company")
+    public ResponseEntity<String> registerCompany(@RequestBody User user) {
+
+        try {
+            User userForSave = new User();
+            userForSave.setUsername(user.getUsername());
+            userForSave.setPassword(user.getPassword());
+            userForSave.setIdUserType(user.getIdUserType());
+            UserDTO userDTO = userService.save(userForSave);
+
+            if (userDTO.getSaved()) {
+                System.out.println(user.getIdCompany().toString());
+                UserAddress userAddress = saveUserAddress(user.getIdCompany().getIdUserAddress());
+                Company company = user.getIdCompany();
+                company.setIdUserAddress(userAddress);
+
+                companyService.save(company);
+                userDTO.getUser().setIdCompany(company);
+
+                userService.update(userDTO.getUser());
+
+                return ResponseEntity.ok("Successfully registration");
+            } else {
+                throw new DuplicateColumnException();
+            }
+        } catch (Exception e) {
+
             e = new DuplicateColumnException();
             return ResponseEntity.ok(e.getMessage());
         }
