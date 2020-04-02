@@ -1,5 +1,6 @@
 package com.se211.ecommerce.service;
 
+import com.se211.ecommerce.dto.UserDTO;
 import com.se211.ecommerce.entity.User;
 import com.se211.ecommerce.exception.DuplicateColumnException;
 import com.se211.ecommerce.repository.UserRepository;
@@ -22,18 +23,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String save(User user) {
-        System.out.println(user.getPassword());
-        System.out.println(user);
+    public UserDTO save(User user) {
+
+        UserDTO userDTO = new UserDTO();
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         try {
             userRepository.save(user);
-            return "Saved";
+            userDTO.setUser(user);
+            userDTO.setSaved(true);
+            return userDTO;
         } catch (Exception e) {
             e = new DuplicateColumnException();
-            return e.getMessage();
+            userDTO.setSaved(false);
+            return userDTO;
         }
 
     }

@@ -127,7 +127,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Client:  " + idClient.getIdClient() +"Username:  "+username+"Password:  " + password;
+        return "Client:  " + idClient.getName() +"Username:  "+username+"Password:  " + password;
     }
     
 }
