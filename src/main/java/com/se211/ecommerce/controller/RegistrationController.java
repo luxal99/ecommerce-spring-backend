@@ -36,6 +36,23 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
+
+    /**
+     * Servis kome se prosledjuje objekat User.
+     * Servis u provm koraku pokusava da sacuva user objekat.
+     * Ukoliko ne postoji user za navedenim korisnickim imenom operacija
+     * ce biti uspesno izvrsena =>
+     * <p>
+     * Nakon toga se izvrsava cuvanje adrese klijenta,kao i njegovih licnih podataka,
+     * id klijenta se prosledjuje sacuvanom useru i podaci o klijentu u user tabeli se
+     * azuiraju
+     * 
+     * U suprotnom Spring vraca izuzetak
+     *
+     * @param user
+     * @return String
+     * @type User
+     */
     @PostMapping("/user")
     public ResponseEntity<String> registerClient(@RequestBody User user) {
 
