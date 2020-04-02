@@ -32,12 +32,11 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "company")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c"),
-    @NamedQuery(name = "Company.findByIdCompany", query = "SELECT c FROM Company c WHERE c.idCompany = :idCompany"),
-    @NamedQuery(name = "Company.findByTitle", query = "SELECT c FROM Company c WHERE c.title = :title")})
 public class Company implements Serializable {
+
+    @Size(max = 64)
+    @Column(name = "title")
+    private String title;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,9 +44,6 @@ public class Company implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_company")
     private Integer idCompany;
-    @Size(max = 64)
-    @Column(name = "title")
-    private String title;
     @OneToMany(mappedBy = "idCompany")
     private List<Product> productList;
     @JoinColumn(name = "id_user_address", referencedColumnName = "id_user_address")
@@ -72,13 +68,6 @@ public class Company implements Serializable {
         this.idCompany = idCompany;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     @XmlTransient
     public List<Product> getProductList() {
@@ -129,6 +118,14 @@ public class Company implements Serializable {
     @Override
     public String toString() {
         return "com.se211.ecommerce.entity.Company[ idCompany=" + idCompany + " ]";
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
     
 }

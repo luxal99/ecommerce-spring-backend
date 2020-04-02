@@ -30,13 +30,14 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "user_address")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UserAddress.findAll", query = "SELECT u FROM UserAddress u"),
-    @NamedQuery(name = "UserAddress.findByIdUserAddress", query = "SELECT u FROM UserAddress u WHERE u.idUserAddress = :idUserAddress"),
-    @NamedQuery(name = "UserAddress.findByCity", query = "SELECT u FROM UserAddress u WHERE u.city = :city"),
-    @NamedQuery(name = "UserAddress.findByAddress", query = "SELECT u FROM UserAddress u WHERE u.address = :address")})
 public class UserAddress implements Serializable {
+
+    @Size(max = 64)
+    @Column(name = "city")
+    private String city;
+    @Size(max = 64)
+    @Column(name = "address")
+    private String address;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,12 +45,6 @@ public class UserAddress implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_user_address")
     private Integer idUserAddress;
-    @Size(max = 64)
-    @Column(name = "city")
-    private String city;
-    @Size(max = 64)
-    @Column(name = "address")
-    private String address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserAddress")
     @JsonIgnore
     private List<Client> clientList;
@@ -72,21 +67,6 @@ public class UserAddress implements Serializable {
         this.idUserAddress = idUserAddress;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     @XmlTransient
     public List<Client> getClientList() {
@@ -129,6 +109,22 @@ public class UserAddress implements Serializable {
     @Override
     public String toString() {
         return "com.se211.ecommerce.entity.UserAddress[ idUserAddress=" + idUserAddress + " ]";
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
 }

@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkUser(User user) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
         for (User userForSearch :
                 getAll()) {
             if (userForSearch.getUsername().equals(user.getUsername())) {

@@ -26,15 +26,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "product")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findByIdProduct", query = "SELECT p FROM Product p WHERE p.idProduct = :idProduct"),
-    @NamedQuery(name = "Product.findByCode", query = "SELECT p FROM Product p WHERE p.code = :code"),
-    @NamedQuery(name = "Product.findByTitle", query = "SELECT p FROM Product p WHERE p.title = :title"),
-    @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
-    @NamedQuery(name = "Product.findByAmount", query = "SELECT p FROM Product p WHERE p.amount = :amount")})
 public class Product implements Serializable {
+
+    @Size(max = 128)
+    @Column(name = "code")
+    private String code;
+    @Size(max = 64)
+    @Column(name = "title")
+    private String title;
+    @JoinColumn(name = "id_image", referencedColumnName = "id_image")
+    @ManyToOne
+    private ImageTable idImage;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,12 +44,6 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_product")
     private Integer idProduct;
-    @Size(max = 128)
-    @Column(name = "code")
-    private String code;
-    @Size(max = 64)
-    @Column(name = "title")
-    private String title;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private Double price;
@@ -72,21 +68,6 @@ public class Product implements Serializable {
         this.idProduct = idProduct;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public Double getPrice() {
         return price;
@@ -135,6 +116,30 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "com.se211.ecommerce.entity.Product[ idProduct=" + idProduct + " ]";
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public ImageTable getIdImage() {
+        return idImage;
+    }
+
+    public void setIdImage(ImageTable idImage) {
+        this.idImage = idImage;
     }
     
 }
