@@ -9,4 +9,5 @@ public interface CompanyService {
     public Company save(Company company);
     public String update(Company company);
     public String delete(Integer id);
+    public Company findCompanyById(Integer idCompany);
 }

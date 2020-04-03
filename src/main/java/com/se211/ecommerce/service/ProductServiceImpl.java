@@ -6,6 +6,7 @@ import com.se211.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,5 +41,17 @@ public class ProductServiceImpl implements ProductService {
     public String delete(Integer id) {
         productRepository.deleteById(id);
         return "Deleted";
+    }
+
+    @Override
+    public List<Product> getProductByCompanyId(Integer idCompany) {
+        List<Product> productList = new ArrayList<>();
+
+        for (Product product:getAll()){
+            if (product.getIdCompany().getIdCompany() == idCompany){
+                productList.add(product);
+            }
+        }
+        return productList;
     }
 }

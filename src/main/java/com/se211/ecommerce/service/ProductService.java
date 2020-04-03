@@ -10,4 +10,5 @@ public interface ProductService {
     public Product save(Product product);
     public String update(Product product);
     public String delete(Integer id);
+    public List<Product> getProductByCompanyId(Integer idCompany);
 }

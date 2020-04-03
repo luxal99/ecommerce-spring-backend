@@ -34,4 +34,10 @@ public class CompanyServiceImpl implements CompanyService {
         companyRepository.deleteById(id);
         return "Deleted";
     }
+
+    @Override
+    public Company findCompanyById(Integer idCompany) {
+
+        return companyRepository.findById(idCompany).get();
+    }
 }
