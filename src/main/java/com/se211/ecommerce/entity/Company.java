@@ -45,6 +45,7 @@ public class Company implements Serializable {
     @Column(name = "id_company")
     private Integer idCompany;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "idCompany")
+    @JsonIgnore
     private List<Product> productList;
     @JoinColumn(name = "id_user_address", referencedColumnName = "id_user_address")
     @ManyToOne(optional = false)
