@@ -4,10 +4,7 @@ import com.se211.ecommerce.entity.Client;
 import com.se211.ecommerce.entity.Product;
 import com.se211.ecommerce.entity.User;
 import com.se211.ecommerce.entity.UserAddress;
-import com.se211.ecommerce.service.UserAddressService;
-import com.se211.ecommerce.service.ClientService;
-import com.se211.ecommerce.service.ProductService;
-import com.se211.ecommerce.service.UserService;
+import com.se211.ecommerce.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +55,7 @@ public class AdminController {
 
     @PostMapping("/saveProduct")
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+
         return ResponseEntity.ok(productService.save(product));
     }
 
@@ -89,6 +87,9 @@ public class AdminController {
     }
 
     //endregion
+
+    @Autowired
+    private CompanyService companyService;
 
 
 }

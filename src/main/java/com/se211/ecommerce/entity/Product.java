@@ -6,17 +6,7 @@
 package com.se211.ecommerce.entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,16 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "product")
 public class Product implements Serializable {
-
-    @Size(max = 128)
-    @Column(name = "code")
-    private String code;
-    @Size(max = 64)
-    @Column(name = "title")
-    private String title;
-    @JoinColumn(name = "id_image", referencedColumnName = "id_image")
-    @ManyToOne
-    private ImageTable idImage;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,6 +29,18 @@ public class Product implements Serializable {
     private Double price;
     @Column(name = "amount")
     private Integer amount;
+    @Size(max = 128)
+    @Column(name = "code")
+    private String code;
+    @Size(max = 64)
+    @Column(name = "title")
+    private String title;
+    @Size(max = 512)
+    @Column(name = "text")
+    private String text;
+    @Size(max = 128)
+    @Column(name = "picture")
+    private String picture;
     @JoinColumn(name = "id_company", referencedColumnName = "id_company")
     @ManyToOne
     private Company idCompany;
@@ -93,6 +85,22 @@ public class Product implements Serializable {
         this.idCompany = idCompany;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,7 +123,8 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "com.se211.ecommerce.entity.Product[ idProduct=" + idProduct + " ]";
+
+        return "Company"+idCompany.getIdCompany();
     }
 
     public String getCode() {
@@ -134,12 +143,5 @@ public class Product implements Serializable {
         this.title = title;
     }
 
-    public ImageTable getIdImage() {
-        return idImage;
-    }
 
-    public void setIdImage(ImageTable idImage) {
-        this.idImage = idImage;
-    }
-    
 }
