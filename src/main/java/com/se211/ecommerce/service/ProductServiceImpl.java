@@ -1,6 +1,7 @@
 package com.se211.ecommerce.service;
 
 import com.se211.ecommerce.entity.Product;
+import com.se211.ecommerce.exception.MaximumCharacterException;
 import com.se211.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(Product product) {
+        try{
+            return productRepository.save(product);
+        }catch (Exception e){
+            e = new MaximumCharacterException("Maximum character");
+            return null;
+        }
 
-        return productRepository.save(product);
     }
 
     @Override

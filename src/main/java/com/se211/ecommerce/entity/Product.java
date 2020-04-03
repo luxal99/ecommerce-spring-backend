@@ -35,7 +35,7 @@ public class Product implements Serializable {
     @Size(max = 64)
     @Column(name = "title")
     private String title;
-    @Size(max = 512)
+    @Size(max = 2048)
     @Column(name = "text")
     private String text;
     @Size(max = 128)

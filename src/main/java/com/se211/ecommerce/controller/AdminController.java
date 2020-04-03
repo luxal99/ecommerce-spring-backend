@@ -55,8 +55,17 @@ public class AdminController {
 
     @PostMapping("/saveProduct")
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+        try{
+            return ResponseEntity.ok(productService.save(product));
+        }catch (Exception e){
+            return null;
+        }
 
-        return ResponseEntity.ok(productService.save(product));
+    }
+
+    @DeleteMapping("/deleteProduct/{idProduct}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Integer idProduct){
+        return ResponseEntity.ok(productService.delete(idProduct));
     }
 
     @GetMapping("/getAllProducts")
