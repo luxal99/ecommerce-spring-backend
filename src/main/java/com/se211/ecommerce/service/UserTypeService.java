@@ -1,6 +1,5 @@
 package com.se211.ecommerce.service;
 
-import com.se211.ecommerce.entity.User;
 import com.se211.ecommerce.entity.UserType;
 
 import java.util.List;

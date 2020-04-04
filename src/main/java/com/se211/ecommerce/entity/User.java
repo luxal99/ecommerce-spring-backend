@@ -26,6 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "user")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+    @NamedQuery(name = "User.findByIdUser", query = "SELECT u FROM User u WHERE u.idUser = :idUser"),
+    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,10 +47,10 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
     @JoinColumn(name = "id_company", referencedColumnName = "id_company")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Company idCompany;
     @JoinColumn(name = "id_client", referencedColumnName = "id_client")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Client idClient;
     @JoinColumn(name = "id_user_type", referencedColumnName = "id_user_type")
     @ManyToOne
@@ -127,7 +133,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Client:  " + idClient.getName() +"Username:  "+username+"Password:  " + password;
+        return "com.se211.ecommerce.entity.User[ idUser=" + idUser + " ]";
     }
     
 }

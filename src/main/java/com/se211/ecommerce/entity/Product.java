@@ -6,7 +6,17 @@
 package com.se211.ecommerce.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,6 +26,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "product")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+    @NamedQuery(name = "Product.findByIdProduct", query = "SELECT p FROM Product p WHERE p.idProduct = :idProduct"),
+    @NamedQuery(name = "Product.findByCode", query = "SELECT p FROM Product p WHERE p.code = :code"),
+    @NamedQuery(name = "Product.findByTitle", query = "SELECT p FROM Product p WHERE p.title = :title"),
+    @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
+    @NamedQuery(name = "Product.findByAmount", query = "SELECT p FROM Product p WHERE p.amount = :amount"),
+    @NamedQuery(name = "Product.findByText", query = "SELECT p FROM Product p WHERE p.text = :text"),
+    @NamedQuery(name = "Product.findByPicture", query = "SELECT p FROM Product p WHERE p.picture = :picture"),
+    @NamedQuery(name = "Product.findByOrderAmount", query = "SELECT p FROM Product p WHERE p.orderAmount = :orderAmount")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,23 +45,25 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_product")
     private Integer idProduct;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "price")
-    private Double price;
-    @Column(name = "amount")
-    private Integer amount;
     @Size(max = 128)
     @Column(name = "code")
     private String code;
     @Size(max = 64)
     @Column(name = "title")
     private String title;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "price")
+    private Double price;
+    @Column(name = "amount")
+    private Integer amount;
     @Size(max = 2048)
     @Column(name = "text")
     private String text;
     @Size(max = 128)
     @Column(name = "picture")
     private String picture;
+    @Column(name = "order_amount")
+    private Integer orderAmount;
     @JoinColumn(name = "id_company", referencedColumnName = "id_company")
     @ManyToOne
     private Company idCompany;
@@ -60,6 +83,21 @@ public class Product implements Serializable {
         this.idProduct = idProduct;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Double getPrice() {
         return price;
@@ -77,14 +115,6 @@ public class Product implements Serializable {
         this.amount = amount;
     }
 
-    public Company getIdCompany() {
-        return idCompany;
-    }
-
-    public void setIdCompany(Company idCompany) {
-        this.idCompany = idCompany;
-    }
-
     public String getText() {
         return text;
     }
@@ -99,6 +129,22 @@ public class Product implements Serializable {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Integer getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(Integer orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
+    public Company getIdCompany() {
+        return idCompany;
+    }
+
+    public void setIdCompany(Company idCompany) {
+        this.idCompany = idCompany;
     }
 
     @Override
@@ -123,25 +169,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-
-        return "Company"+idCompany.getIdCompany();
+        return "com.se211.ecommerce.entity.Product[ idProduct=" + idProduct + " ]";
     }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-
+    
 }

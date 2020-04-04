@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,11 +31,12 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "company")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c"),
+    @NamedQuery(name = "Company.findByIdCompany", query = "SELECT c FROM Company c WHERE c.idCompany = :idCompany"),
+    @NamedQuery(name = "Company.findByTitle", query = "SELECT c FROM Company c WHERE c.title = :title")})
 public class Company implements Serializable {
-
-    @Size(max = 64)
-    @Column(name = "title")
-    private String title;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,14 +44,17 @@ public class Company implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_company")
     private Integer idCompany;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "idCompany")
+    @Size(max = 64)
+    @Column(name = "title")
+    private String title;
+    @OneToMany(mappedBy = "idCompany")
     @JsonIgnore
     private List<Product> productList;
     @JoinColumn(name = "id_user_address", referencedColumnName = "id_user_address")
     @ManyToOne(optional = false)
     private UserAddress idUserAddress;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompany")
     @JsonIgnore
+    @OneToMany(mappedBy = "idCompany")
     private List<User> userList;
 
     public Company() {
@@ -69,6 +72,13 @@ public class Company implements Serializable {
         this.idCompany = idCompany;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @XmlTransient
     public List<Product> getProductList() {
@@ -119,14 +129,6 @@ public class Company implements Serializable {
     @Override
     public String toString() {
         return "com.se211.ecommerce.entity.Company[ idCompany=" + idCompany + " ]";
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
     
 }

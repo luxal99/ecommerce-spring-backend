@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -36,6 +37,7 @@ public class UserType implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_user_type")
     private Integer idUserType;
+    @Size(max = 64)
     @Column(name = "title")
     private String title;
     @OneToMany(mappedBy = "idUserType")

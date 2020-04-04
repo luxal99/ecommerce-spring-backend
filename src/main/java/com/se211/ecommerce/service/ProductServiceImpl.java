@@ -23,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         try{
+            product.setOrderAmount(1);
             return productRepository.save(product);
         }catch (Exception e){
             e = new MaximumCharacterException("Maximum character");

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,10 +60,10 @@ public class Client implements Serializable {
     @Column(name = "telephone")
     private String telephone;
     @JoinColumn(name = "id_user_address", referencedColumnName = "id_user_address")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private UserAddress idUserAddress;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idClient")
     @JsonIgnore
+    @OneToMany(mappedBy = "idClient")
     private List<User> userList;
 
     public Client() {
