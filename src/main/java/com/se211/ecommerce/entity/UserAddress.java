@@ -30,12 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "user_address")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UserAddress.findAll", query = "SELECT u FROM UserAddress u"),
-    @NamedQuery(name = "UserAddress.findByIdUserAddress", query = "SELECT u FROM UserAddress u WHERE u.idUserAddress = :idUserAddress"),
-    @NamedQuery(name = "UserAddress.findByCity", query = "SELECT u FROM UserAddress u WHERE u.city = :city"),
-    @NamedQuery(name = "UserAddress.findByAddress", query = "SELECT u FROM UserAddress u WHERE u.address = :address")})
 public class UserAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;

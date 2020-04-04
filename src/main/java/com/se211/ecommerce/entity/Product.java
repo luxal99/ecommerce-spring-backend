@@ -26,17 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "product")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findByIdProduct", query = "SELECT p FROM Product p WHERE p.idProduct = :idProduct"),
-    @NamedQuery(name = "Product.findByCode", query = "SELECT p FROM Product p WHERE p.code = :code"),
-    @NamedQuery(name = "Product.findByTitle", query = "SELECT p FROM Product p WHERE p.title = :title"),
-    @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
-    @NamedQuery(name = "Product.findByAmount", query = "SELECT p FROM Product p WHERE p.amount = :amount"),
-    @NamedQuery(name = "Product.findByText", query = "SELECT p FROM Product p WHERE p.text = :text"),
-    @NamedQuery(name = "Product.findByPicture", query = "SELECT p FROM Product p WHERE p.picture = :picture"),
-    @NamedQuery(name = "Product.findByOrderAmount", query = "SELECT p FROM Product p WHERE p.orderAmount = :orderAmount")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,8 +51,6 @@ public class Product implements Serializable {
     @Size(max = 128)
     @Column(name = "picture")
     private String picture;
-    @Column(name = "order_amount")
-    private Integer orderAmount;
     @JoinColumn(name = "id_company", referencedColumnName = "id_company")
     @ManyToOne
     private Company idCompany;
@@ -129,14 +116,6 @@ public class Product implements Serializable {
 
     public void setPicture(String picture) {
         this.picture = picture;
-    }
-
-    public Integer getOrderAmount() {
-        return orderAmount;
-    }
-
-    public void setOrderAmount(Integer orderAmount) {
-        this.orderAmount = orderAmount;
     }
 
     public Company getIdCompany() {
