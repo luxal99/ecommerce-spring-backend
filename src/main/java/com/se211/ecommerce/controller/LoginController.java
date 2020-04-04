@@ -1,8 +1,10 @@
 package com.se211.ecommerce.controller;
 
+import com.se211.ecommerce.entity.Client;
 import com.se211.ecommerce.entity.Company;
 import com.se211.ecommerce.entity.Product;
 import com.se211.ecommerce.entity.User;
+import com.se211.ecommerce.service.ClientService;
 import com.se211.ecommerce.service.CompanyService;
 import com.se211.ecommerce.service.ProductService;
 import com.se211.ecommerce.service.UserService;
@@ -31,6 +33,14 @@ public class LoginController {
     public ResponseEntity<Company> findCompany(@PathVariable Integer idCompany){
         System.out.println(idCompany);
         return ResponseEntity.ok(companyService.findCompanyById(idCompany));
+    }
+
+    @Autowired
+    private ClientService clientService;
+
+    @GetMapping("/findClient/{idClient}")
+    public ResponseEntity<Client> findClient(@PathVariable Integer idClient){
+        return ResponseEntity.ok(clientService.findClientById(idClient));
     }
 
     @Autowired

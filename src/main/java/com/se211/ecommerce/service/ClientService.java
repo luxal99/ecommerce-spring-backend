@@ -14,4 +14,6 @@ public interface ClientService {
 
     public String delete(Integer id);
 
+    public Client findClientById(Integer id);
+
 }
