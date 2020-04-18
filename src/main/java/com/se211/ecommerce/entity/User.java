@@ -9,14 +9,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,18 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "user")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByIdUser", query = "SELECT u FROM User u WHERE u.idUser = :idUser"),
-    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_user")
     private Integer idUser;
     @Size(max = 64)
@@ -46,14 +40,14 @@ public class User implements Serializable {
     @Size(max = 64)
     @Column(name = "password")
     private String password;
-    @JoinColumn(name = "id_user", referencedColumnName = "id_company", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Company company;
+    @JoinColumn(name = "id_company", referencedColumnName = "id_company")
+    @ManyToOne
+    private Company idCompany;
     @JoinColumn(name = "id_client", referencedColumnName = "id_client")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Client idClient;
     @JoinColumn(name = "id_user_type", referencedColumnName = "id_user_type")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private UserType idUserType;
 
     public User() {
@@ -87,12 +81,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Company getCompany() {
-        return company;
+    public Company getIdCompany() {
+        return idCompany;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setIdCompany(Company idCompany) {
+        this.idCompany = idCompany;
     }
 
     public Client getIdClient() {

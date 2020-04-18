@@ -5,10 +5,11 @@
  */
 package com.se211.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -27,11 +29,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "user_type")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UserType.findAll", query = "SELECT u FROM UserType u"),
-    @NamedQuery(name = "UserType.findByIdUserType", query = "SELECT u FROM UserType u WHERE u.idUserType = :idUserType"),
-    @NamedQuery(name = "UserType.findByTitle", query = "SELECT u FROM UserType u WHERE u.title = :title")})
 public class UserType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,9 +37,11 @@ public class UserType implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_user_type")
     private Integer idUserType;
+    @Size(max = 64)
     @Column(name = "title")
-    private Integer title;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserType")
+    private String title;
+    @OneToMany(mappedBy = "idUserType")
+    @JsonIgnore
     private List<User> userList;
 
     public UserType() {
@@ -60,11 +59,11 @@ public class UserType implements Serializable {
         this.idUserType = idUserType;
     }
 
-    public Integer getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(Integer title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 

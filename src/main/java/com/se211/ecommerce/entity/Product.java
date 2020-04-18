@@ -26,13 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "product")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findByIdProduct", query = "SELECT p FROM Product p WHERE p.idProduct = :idProduct"),
-    @NamedQuery(name = "Product.findByTitle", query = "SELECT p FROM Product p WHERE p.title = :title"),
-    @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
-    @NamedQuery(name = "Product.findByAmount", query = "SELECT p FROM Product p WHERE p.amount = :amount")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,6 +34,9 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_product")
     private Integer idProduct;
+    @Size(max = 128)
+    @Column(name = "code")
+    private String code;
     @Size(max = 64)
     @Column(name = "title")
     private String title;
@@ -49,8 +45,14 @@ public class Product implements Serializable {
     private Double price;
     @Column(name = "amount")
     private Integer amount;
+    @Size(max = 2048)
+    @Column(name = "text")
+    private String text;
+    @Size(max = 128)
+    @Column(name = "picture")
+    private String picture;
     @JoinColumn(name = "id_company", referencedColumnName = "id_company")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Company idCompany;
 
     public Product() {
@@ -66,6 +68,14 @@ public class Product implements Serializable {
 
     public void setIdProduct(Integer idProduct) {
         this.idProduct = idProduct;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getTitle() {
@@ -90,6 +100,22 @@ public class Product implements Serializable {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public Company getIdCompany() {
